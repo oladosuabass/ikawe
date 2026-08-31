@@ -1,0 +1,44 @@
+create a chrome extension that extracts book data from oceanofpdf.com site;
+
+- extracts book data from a webpage; the page has some content that needs to be extracted and send to the server.
+
+1. on the page, there is an <em></em> tag enclosed in a <p></p> tag that holds book summary. 
+2. there is also data like:
+Full Book Name: Unromance
+Author Name: Erin Connor
+Book Genre: Adult, Contemporary, Contemporary Romance, Fiction, Holiday, LGBT, Romance
+Series Detail:
+ISBN # 9781538759424
+ASIN # 153875942X
+Edition Language: English
+Date of Publication: January 14, 2025
+
+the book metadata such as Author Name should be extracted. in this case: Erin Connor
+
+- extract these data and send it to this endpoint: http://127.0.0.1:5000/docmetadata 
+
+- on the same webpage, there is an input, when clicked, it opens a new tab that downloads a file(epub) into the computer, i want this file included in the data sent to the endpoint above(if this could be automated fine, otherwise, let me know so we can do it manually)
+
+
+added_at
+updated_at
+title
+author
+description
+genre 
+isbn 
+asin 
+language 
+pub_date
+series 
+publisher 
+source_url 
+format
+total_pages
+total_char_length
+total_word_length
+cover_image_url
+file_url
+narrator
+tag
+price

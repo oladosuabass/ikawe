@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Outtloud Book Importer",
+  "version": "1.6.5",
+  "description": "Extracts book metadata and EPUB files from oceanofpdf.com and sends them to the Outtloud server.",
+  "permissions": ["downloads", "tabs", "storage", "scripting"],
+  "host_permissions": [
+    "*://*.oceanofpdf.com/*",
+    "https://*/*",
+    "http://*/*",
+    "https://api.outtloud.com/*",
+    "http://127.0.0.1:5000/*",
+    "http://localhost:5000/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Outtloud Book Importer"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.oceanofpdf.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

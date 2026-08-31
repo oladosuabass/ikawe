@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+:root {
+  color-scheme: light;
+  --bg: #f4f1ea;
+  --surface: #faf8f3;
+  --surface-elevated: #ffffff;
+  --surface-muted: #ebe6dc;
+  --text: #1f1c18;
+  --text-soft: #4a443c;
+  --muted: #7a7268;
+  --border: #d8d0c4;
+  --accent: #3d5a4c;
+  --accent-soft: #5c7a6a;
+  --shadow: 0 18px 40px rgba(31, 28, 24, 0.08);
+  --radius: 1rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#__nuxt {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    "Literata", Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+/* Reader themes */
+.reader-theme-paper {
+  --reader-bg: #f4f1ea;
+  --reader-text: #1f1c18;
+  --reader-muted: #7a7268;
+  --reader-chrome: rgba(244, 241, 234, 0.92);
+  --reader-border: rgba(31, 28, 24, 0.08);
+  --reader-accent: #3d5a4c;
+}
+
+.reader-theme-sepia {
+  --reader-bg: #f2e8d5;
+  --reader-text: #3d2b1f;
+  --reader-muted: #7a5c45;
+  --reader-chrome: rgba(242, 232, 213, 0.94);
+  --reader-border: rgba(61, 43, 31, 0.1);
+  --reader-accent: #6b4f3a;
+}
+
+.reader-theme-dark {
+  --reader-bg: #141414;
+  --reader-text: #c8c8c8;
+  --reader-muted: #8a8a8a;
+  --reader-chrome: rgba(20, 20, 20, 0.94);
+  --reader-border: rgba(200, 200, 200, 0.08);
+  --reader-accent: #9a9a9a;
+}
+
+.reader-theme-contrast {
+  --reader-bg: #ffffff;
+  --reader-text: #000000;
+  --reader-muted: #333333;
+  --reader-chrome: rgba(255, 255, 255, 0.96);
+  --reader-border: rgba(0, 0, 0, 0.12);
+  --reader-accent: #000000;
+}
+
+.reader-theme-xteink {
+  --reader-bg: #e8e4dc;
+  --reader-text: #2a2a2a;
+  --reader-muted: #666666;
+  --reader-chrome: rgba(232, 228, 220, 0.95);
+  --reader-border: rgba(42, 42, 42, 0.1);
+  --reader-accent: #444444;
+}
+
+.reader-font-serif {
+  --reader-font: "Literata", Georgia, "Iowan Old Style", serif;
+}
+
+.reader-font-literary {
+  --reader-font: Georgia, "Times New Roman", Times, serif;
+}
+
+.reader-font-mono {
+  --reader-font:
+    "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.reader-font-fast {
+  --reader-font: "Literata", Georgia, "Iowan Old Style", serif;
+}

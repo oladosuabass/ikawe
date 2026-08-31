@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        width: 370px;
+        margin: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        font-size: 13px;
+        color: #1c1c1e;
+        background: #f6f6f8;
+      }
+      header {
+        padding: 14px 16px 12px;
+        background: #ffffff;
+        border-bottom: 1px solid #e5e5ea;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 650;
+      }
+      header p {
+        margin: 4px 0 0;
+        color: #6e6e73;
+        font-size: 12px;
+      }
+      #workerStatus {
+        cursor: pointer;
+        color: #2563eb;
+      }
+      #workerStatus:hover {
+        text-decoration: underline;
+      }
+      main {
+        padding: 12px 16px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .card {
+        background: #ffffff;
+        border: 1px solid #e5e5ea;
+        border-radius: 10px;
+        padding: 10px 12px;
+      }
+      #preview {
+        display: none;
+      }
+      #preview dl {
+        margin: 0;
+        display: grid;
+        grid-template-columns: 92px 1fr;
+        row-gap: 4px;
+        column-gap: 8px;
+      }
+      #preview dt {
+        color: #6e6e73;
+      }
+      #preview dd {
+        margin: 0;
+        word-break: break-word;
+        max-height: 48px;
+        overflow: hidden;
+      }
+      button {
+        width: 100%;
+        padding: 9px 12px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+      .primary {
+        background: #2563eb;
+        color: #ffffff;
+      }
+      .primary:hover:not(:disabled) {
+        background: #1d4ed8;
+      }
+      .secondary {
+        background: #ffffff;
+        border-color: #d4d4d8;
+        color: #1c1c1e;
+      }
+      .secondary:hover:not(:disabled) {
+        background: #f0f0f2;
+      }
+      #status {
+        display: none;
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      #status.info {
+        display: block;
+        background: #eff6ff;
+        color: #1e40af;
+        border: 1px solid #bfdbfe;
+      }
+      #status.ok {
+        display: block;
+        background: #ecfdf5;
+        color: #065f46;
+        border: 1px solid #a7f3d0;
+      }
+      #status.error {
+        display: block;
+        background: #fef2f2;
+        color: #991b1b;
+        border: 1px solid #fecaca;
+      }
+      input[type="file"] {
+        display: none;
+      }
+      .file-label {
+        display: block;
+        text-align: center;
+        padding: 8px;
+        border: 1px dashed #c7c7cc;
+        border-radius: 8px;
+        color: #6e6e73;
+        cursor: pointer;
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .file-label:hover {
+        background: #f0f0f2;
+      }
+      .hint {
+        color: #6e6e73;
+        font-size: 11px;
+        margin: 8px 0 0;
+        line-height: 1.4;
+      }
+      #sendManualBtn {
+        margin-top: 8px;
+      }
+      .field-row {
+        display: flex;
+        gap: 8px;
+      }
+      #workerInput {
+        flex: 1;
+        padding: 8px 10px;
+        border: 1px solid #d4d4d8;
+        border-radius: 8px;
+        font-size: 13px;
+        font-family: inherit;
+      }
+      #workerInput:focus {
+        outline: none;
+        border-color: #2563eb;
+      }
+      #saveWorkerBtn {
+        width: auto;
+        padding: 8px 16px;
+      }
+      .a-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .a-title {
+        font-weight: 650;
+        font-size: 12px;
+      }
+      .link-btn {
+        width: auto;
+        background: none;
+        border: none;
+        color: #2563eb;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 0;
+      }
+      .link-btn:hover {
+        text-decoration: underline;
+      }
+      .a-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        text-align: center;
+        margin-bottom: 8px;
+      }
+      .a-grid span {
+        display: block;
+        font-size: 16px;
+        font-weight: 700;
+      }
+      .a-grid label {
+        font-size: 10px;
+        color: #6e6e73;
+      }
+      #aHistory {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-height: 140px;
+        overflow-y: auto;
+      }
+      #aHistory li {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+      }
+      .h-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        flex: none;
+      }
+      .h-dot.ok {
+        background: #10b981;
+      }
+      .h-dot.fail {
+        background: #ef4444;
+      }
+      .h-title {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .h-meta {
+        color: #8e8e93;
+        flex: none;
+      }
+      .a-empty {
+        font-size: 11px;
+        color: #8e8e93;
+        margin: 0;
+      }
+      .popular-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: #1c1c1e;
+        cursor: pointer;
+      }
+      .tag-toggles {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .popular-row input {
+        width: 14px;
+        height: 14px;
+        margin: 0;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Outtloud Book Importer</h1>
+      <p id="siteStatus">Checking current tab...</p>
+      <p id="workerStatus" title="Click to change worker ID">
+        Worker ID not set
+      </p>
+    </header>
+    <main>
+      <div id="status"></div>
+
+      <div id="workerCard" class="card" style="display: none">
+        <div class="field-row">
+          <input
+            id="workerInput"
+            type="text"
+            inputmode="numeric"
+            placeholder="Worker ID (e.g. 12345)" />
+          <button id="saveWorkerBtn" class="primary">Save</button>
+        </div>
+        <p class="hint">Your worker ID is attached to every book you send.</p>
+      </div>
+
+      <div id="preview" class="card">
+        <dl>
+          <dt>Title</dt>
+          <dd id="pTitle">&mdash;</dd>
+          <dt>Author</dt>
+          <dd id="pAuthor">&mdash;</dd>
+          <dt>Genre</dt>
+          <dd id="pGenre">&mdash;</dd>
+          <dt>Published</dt>
+          <dd id="pPubDate">&mdash;</dd>
+          <dt>ISBN / ASIN</dt>
+          <dd id="pIsbn">&mdash;</dd>
+          <dt>Summary</dt>
+          <dd id="pSummary">&mdash;</dd>
+          <dt>Book link</dt>
+          <dd id="pEpub">&mdash;</dd>
+        </dl>
+      </div>
+
+      <button id="sendBtn" class="primary" disabled>
+        Extract &amp; Send to Server
+      </button>
+      <button id="captureBtn" class="secondary" disabled>
+        Capture download
+      </button>
+
+      <div class="card tag-toggles">
+        <label class="popular-row">
+          <input type="checkbox" id="popularToggle" />
+          <span>Popular</span>
+        </label>
+        <label class="popular-row">
+          <input type="checkbox" id="newReleaseToggle" />
+          <span>New release</span>
+        </label>
+      </div>
+
+      <div class="card">
+        <label class="file-label" for="fileInput" id="fileLabel"
+          >Choose .epub / .pdf manually...</label
+        >
+        <input
+          type="file"
+          id="fileInput"
+          accept=".epub,.pdf,application/epub+zip,application/pdf" />
+        <p class="hint">
+          If automatic capture fails, download the book yourself, pick the file
+          here, and it will be sent with the page metadata.
+        </p>
+        <button id="sendManualBtn" class="secondary" disabled>
+          Send selected file
+        </button>
+      </div>
+
+      <div id="analyticsCard" class="card">
+        <div class="a-head">
+          <span class="a-title">Analytics</span>
+          <button id="resetAnalyticsBtn" class="link-btn">Reset</button>
+        </div>
+        <div class="a-grid">
+          <div><span id="aSuccess">0</span><label>successful</label></div>
+          <div><span id="aFailed">0</span><label>failed</label></div>
+          <div><span id="aDirect">0</span><label>direct</label></div>
+          <div><span id="aCapture">0</span><label>captured</label></div>
+          <div><span id="aManual">0</span><label>manual</label></div>
+        </div>
+        <ul id="aHistory"></ul>
+      </div>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
